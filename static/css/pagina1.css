@@ -1,0 +1,252 @@
+h1 {
+  color: transparent;
+  -webkit-text-stroke-color: #444;
+  -webkit-text-stroke-width: 0.4px;
+  font-weight: 600;
+  font-size: 42pt;
+  font-style: italic;
+}
+h2 {
+  color: transparent;
+  -webkit-text-stroke-color: #444;
+  -webkit-text-stroke-width: 0.4px;
+  font-style: italic;
+}
+.carousel {
+  padding: 50px 0;
+  background-color: #f8f8f8;
+}
+
+.carousel .carousel-images {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.carousel .carousel-images img {
+  width: 30%;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.carousel .carousel-images img:hover {
+  transform: scale(1.05);
+}
+
+.about {
+  padding: 80px 20px;
+  background-color: #f9edcc;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.left {
+  max-width: 50%;
+  flex: 1;
+  text-align: left;
+}
+
+.heading h2 {
+  font-size: 1.8rem;
+  color: #666;
+  font-style: italic;
+  margin-bottom: 20px;
+  -webkit-text-stroke: #333;
+  -webkit-text-stroke-color: #444;
+  -webkit-text-stroke-width: 1px;
+}
+
+.left p {
+  font-size: 1.1rem;
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.right {
+  max-width: 45%;
+}
+
+.right img {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.right img:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .right {
+    max-width: 100%;
+    margin-top: 20px;
+  }
+
+  .right img {
+    width: 100%;
+  }
+}
+
+.body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+}
+
+.rooms {
+  position: relative;
+  padding: 20px;
+}
+
+.rooms .text {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: none;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.rooms i {
+  font-size: 12px;
+  color: #fbb234;
+  margin: 15px 0;
+  margin-right: 5px;
+}
+
+.rooms p {
+  margin: 20px 0;
+  opacity: 0.7;
+}
+
+.rooms h3 {
+  font-size: 30px;
+  line-height: 20px;
+  margin-left: 20px;
+  font-weight: 500;
+  color: #7fc142;
+}
+
+.rooms h3 span {
+  font-size: 15px;
+  font-weight: 400;
+  color: #000;
+}
+
+.owl-carousel1 {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 20px 0;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.owl-carousel1 .items {
+  min-width: 280px;
+  max-width: 300px;
+  flex-shrink: 0;
+  text-align: center;
+  scroll-snap-align: center;
+}
+
+.owl-carousel1 .owl-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+.owl-carousel1 .owl-nav .owl-prev,
+.owl-carousel1 .owl-nav .owl-next {
+  position: absolute;
+  top: 50%;
+  height: 50px;
+  width: 50px;
+  background-color: #7fc142;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: white;
+  font-size: 20px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.owl-carousel1 .owl-nav .owl-prev {
+  left: 0;
+}
+
+.owl-carousel1 .owl-nav .owl-next {
+  right: 0;
+}
+
+.owl-carousel1 .owl-nav .owl-prev i,
+.owl-carousel1 .owl-nav .owl-next i {
+  color: #f2eec3;
+  font-size: 20px;
+}
+
+.items:hover .text {
+  transform: translateY(-10px);
+}
+
+@media (max-width: 768px) {
+  .owl-carousel1 .items {
+    min-width: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .owl-carousel1 .items {
+    min-width: 200px;
+  }
+}
+
+.banner {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .banner {
+    font-size: 1.2rem;
+  }
+}

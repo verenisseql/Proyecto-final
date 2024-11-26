@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotel Belle Époque</title>
+    <link rel="stylesheet" href="/static/css/pagina1.css" />
+  </head>
+  <body>
+    <section class="about top">
+      <div class="container flex">
+        <div class="left">
+          <div class="heading">
+            <h1>BIENVENIDOS</h1>
+            <h2>Hotel Belle Époque</h2>
+          </div>
+          <p>
+            Bienvenido al Hotel Belle Époque, donde el lujo, la comodidad y la
+            atención personalizada se unen para brindarte una experiencia
+            inolvidable...
+          </p>
+        </div>
+
+        <div class="right">
+          <img
+            src="/static/imagenes/banner-1.png"
+            alt="Imagen del Hotel Belle Époque"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="carousel">
+      <div class="carousel-images">
+        <img src="/static/imagenes/banner-1.png" alt="Vista del hotel" />
+        <img src="/static/imagenes/banner-2.png" alt="Habitación de lujo" />
+        <img src="/static/imagenes/banner-3.png" alt="Vista del restaurante" />
+      </div>
+    </section>
+  </body>
+</html>
+
+<section class="rooms">
+  <div class="container top">
+    <div class="heading">
+      <h1>EXPLORA</h1>
+      <h2>Nuestras Habitaciones</h2>
+      <p>
+        Encuentra la habitación perfecta para tu descanso y confort. Elige entre
+        nuestras opciones y disfruta de una estancia única.
+      </p>
+    </div>
+
+    <div class="content mtop">
+      <div class="owl-carousel owl-carousel1 owl-theme">
+        {%for habitacion in habitaciones %}
+        <div class="items">
+          <div class="image">
+            <img
+              alt="{{habitacion['descripcion']}}"
+              src="/static/imagenes/{{habitacion['image_name']}}"
+              width="200"
+            />
+          </div>
+          <div class="text">
+            <h2>{{habitacion['nom_hab']}}</h2>
+            <p>{{habitacion['descripcion']}}</p>
+            <div class="button flex">
+              <button
+                class="primary-btn"
+                onclick="window.location.href='/pagina2?id={{ habitacion.id }}'"
+              >
+                Reservar ahora
+              </button>
+              <h3>
+                ${{habitacion['precio']}} <span><br />Por noche</span>
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        {%endfor%}
+      </div>
+    </div>
+  </div>
+</section>

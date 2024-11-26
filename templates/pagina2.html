@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de reserva de Hotel</title>
+    <link rel="stylesheet" href="/static/css/estilodepagina2ofc.css">
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Formulario de reserva de Hotel</h1>
+        <form id="reservaForm" action="/reservar" method="POST">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required><br>
+        
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" name="apellido" required><br>
+        
+            <label for="correo">Correo:</label>
+            <input type="email" id="correo" name="correo" required><br>
+        
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" required><br>
+        
+            <label for="checkin">Fecha de Entrada:</label>
+            <input type="date" id="checkin" name="checkin" required><br>
+        
+            <label for="checkout">Fecha de Salida:</label>
+            <input type="date" id="checkout" name="checkout" required><br>
+        
+            <input type="hidden" name="habitacion_id" value="{{ habitacion.id }}">
+        
+            <button type="submit">Reservar ahora</button>
+        </form>
+    </div>
+
+    <div class="table-container" id="tablaReservasContainer" style="display: none;">
+        <h1>Reservas</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Fecha de Entrada</th>
+                    <th>Fecha de Salida</th>
+                    <th>Habitación</th>
+                    <th>Hotel</th>
+                </tr>
+            </thead>
+            <tbody id="tablaReservas">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        async function cargarHabitaciones() {
+            const response = await fetch('/habitaciones');
+            const habitaciones = await response.json();
+            const select = document.getElementById('habitacion_id');
+    
+            if(!select) return;
+
+            select.innerHTML = '';
+    
+            habitaciones.forEach(habitacion => {
+                const option = document.createElement('option');
+                option.value = habitacion.id;
+                option.textContent = `${habitacion.nom_hab} - $${habitacion.precio} (Disponibles: ${habitacion.disponibles})`;
+                select.appendChild(option);
+            });
+        }
+    
+        async function cargarReservas() {
+            const response = await fetch('/reservas');
+            const reservas = await response.json();
+            const tablaContainer = document.getElementById('tablaReservasContainer');
+            const tabla = document.getElementById('tablaReservas');
+    
+            tabla.innerHTML = '';
+    
+            if (reservas.length === 0) {
+                tablaContainer.style.display = 'none';
+            } else {
+                tablaContainer.style.display = 'block';
+                reservas.forEach(reserva => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${reserva.nombre} ${reserva.apellido}</td>
+                        <td>${reserva.telefono}</td>
+                        <td>${reserva.correo}</td>
+                        <td>${reserva.fecha_entrada}</td>
+                        <td>${reserva.fecha_salida}</td>
+                        <td>${reserva.habitaciones_disponibles} habitaciones disponibles</td>
+                        <td>
+                            <button class="delete-btn" onclick="eliminarReserva(${reserva.id})">Eliminar</button>
+                        </td>
+                    `;
+                    tabla.appendChild(row);
+                });
+            }
+        }
+    
+        async function eliminarReserva(id) {
+            const response = await fetch('/reservas', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id }),
+            });
+            const result = await response.json();
+            cargarHabitaciones();
+            cargarReservas();
+        }
+    
+        function limpiarDatos() {
+            document.getElementById('reservaForm').reset();
+
+            const tabla = document.getElementById('tablaReservas');
+            const tablaContainer = document.getElementById('tablaReservasContainer');
+            tabla.innerHTML = '';
+            tablaContainer.style.display = 'none';
+        }
+    
+        document.getElementById('reservaForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+    
+            const formData = new FormData(this);
+            const data = {
+                nombre: formData.get('nombre'),
+                apellido: formData.get('apellido'),
+                correo: formData.get('correo'),
+                telefono: formData.get('telefono'),
+                checkin: formData.get('checkin'),
+                checkout: formData.get('checkout'),
+                habitacion_id: formData.get('habitacion_id'),
+            };
+    
+            const response = await fetch('/reservar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+    
+            const result = await response.json();
+            cargarHabitaciones();
+            cargarReservas();
+        });
+
+        limpiarDatos();
+        cargarHabitaciones();
+        cargarReservas();
+    </script>
+</body>
+</html>
